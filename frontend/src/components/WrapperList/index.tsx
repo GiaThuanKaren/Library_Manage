@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 interface SideBarType {
   title: string;
@@ -72,7 +73,25 @@ function WrapperList({ children }: { children: any }) {
   ];
   return (
     <>
-      <div className="flex items-center">{children}</div>
+      <div className="flex items-center ">
+        <div className="basis-1/4">
+          {ListSideBarItem.map((item: SideBarType, index: number) => {
+            return (
+              <>
+                <Link href={item.href} className="block h-12 w-full">
+                  <div className="h-full mt-3 flex items-center">
+                    <div className="mx-2">{item.icon}</div>
+
+                    <p className="text-base">{item.title}</p>
+                  </div>
+                </Link>
+              </>
+            );
+          })}
+        </div>
+        <div className="basis-2/4 h-32">{children}</div>
+        <div className="basis-1/4 h-32"></div>
+      </div>
     </>
   );
 }
