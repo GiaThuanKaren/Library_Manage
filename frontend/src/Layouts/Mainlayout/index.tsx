@@ -7,7 +7,7 @@ function Mainlayout({ children }: Props) {
   return (
     <>
       <Header />
-      <div className="flex items-center justify-center mx-auto xl:mx-[200px] ">
+      <div className="mt-10 flex items-center justify-center mx-auto xl:mx-[200px] ">
         <div className="w-full mt-14">{children}</div>
       </div>
     </>

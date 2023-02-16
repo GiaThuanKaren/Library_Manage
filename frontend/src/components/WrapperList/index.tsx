@@ -182,8 +182,8 @@ function WrapperList({ children }: { children: any }) {
 
   return (
     <>
-      <div className="flex items-center ">
-        <div className="basis-1/4 px-4">
+      <div className="flex ">
+        <div className="hidden md:block basis-1/5 px-4">
           {ListSideBarItem.map((item: SideBarList, index: number) => {
             return (
               <>
@@ -193,7 +193,7 @@ function WrapperList({ children }: { children: any }) {
                     <>
                       <Link key={`${index1}${item1.title}`} href={item1.href} className="block h-12 w-full">
                         <div className="h-full mt-3 flex items-center">
-                          <div className="mx-2">{item1.icon}</div>
+                          <div className="mx-2 ">{item1.icon}</div>
                           <p className="text-base">{item1.title}</p>
                         </div>
                       </Link>
@@ -223,8 +223,8 @@ function WrapperList({ children }: { children: any }) {
             );
           })} */}
         </div>
-        <div className="basis-2/4 h-32">{children}</div>
-        <div className="basis-1/4 h-32"></div>
+        <div className=" lg:basis-3/5 h-32">{children}</div>
+        <div className="hidden lg:block basis-1/5 h-32 bg-green-300"></div>
       </div>
     </>
   );
