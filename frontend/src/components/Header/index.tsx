@@ -36,7 +36,7 @@ function Header() {
               alt="Rounded avatar"
             />
             {isOpenNav && (
-              <ul className="shadow-md rounded-md h-[300px] w-[250px] bg-white absolute z-[1] top-[calc(100%_+_10px)] right-0 px-2 py-1">
+              <ul className="shadow-md rounded-md h-[300px] w-screen  sm:w-[250px] bg-white absolute z-[1] top-[calc(100%_+_10px)] right-0 px-2 py-1">
                 <li className="p-2 border-b-[2px] border-[#D4D4D4]">
                   <h3 className="font-medium text-sm whitespace-nowrap">Nguyễn Quang Gia Thuận</h3>
                   <h4 className="font-light font-xs">@giathuankaren</h4>
