@@ -1,12 +1,27 @@
 import Link from "next/link";
 import React from "react";
 import { ICON, IconRegular, IconSolid } from "src/utils";
+import LeftSideBar from "../LeftSideBar";
 
 function Header() {
   const [isOpenNav, SetIsOpenNav] = React.useState(false);
+  const [isOpenDrawer, SetIsOpenDrawer] = React.useState(false);
+
   return (
     <>
-      <div className="bg-white shadow-md transition-all py-2 fixed left-0 right-0 top-0 z-[2]">
+      <div className=" px-2 sm:px-0 bg-white shadow-md transition-all py-2 fixed left-0 right-0 top-0 z-[2]">
+        {isOpenDrawer && (
+          <>
+            <div className=" bg-white px-5 absolute z-[2] top-0 bottom-0 left-0 h-screen  overflow-y-auto ">
+              <div className="w-screen">
+                {/* <div className="flex justify-end  p-5">
+              <ICON className="" icon={IconSolid.faTimes} />
+            </div> */}
+                <LeftSideBar />
+              </div>
+            </div>
+          </>
+        )}
         <div className="flex items-center justify-between xl:mx-[200px] min-h-[50px] ">
           <div className="hidden md:flex items-center border-[2px] border-[#D4D4D4] px-2 py-1 rounded-md">
             <input
@@ -38,7 +53,9 @@ function Header() {
             {isOpenNav && (
               <ul className="shadow-md rounded-md h-[300px] w-screen  sm:w-[250px] bg-white absolute z-[1] top-[calc(100%_+_10px)] right-0 px-2 py-1">
                 <li className="p-2 border-b-[2px] border-[#D4D4D4]">
-                  <h3 className="font-medium text-sm whitespace-nowrap">Nguyễn Quang Gia Thuận</h3>
+                  <h3 className="font-medium text-sm whitespace-nowrap">
+                    Nguyễn Quang Gia Thuận
+                  </h3>
                   <h4 className="font-light font-xs">@giathuankaren</h4>
                 </li>
                 <li className="p-2">Dashboard</li>
