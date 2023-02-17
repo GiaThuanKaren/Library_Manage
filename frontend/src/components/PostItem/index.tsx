@@ -27,9 +27,16 @@ function PostItem() {
             </p>
             <div className="flex items-center justify-between my-2">
               <div className="flex items-center">
-                <ICON icon={IconRegular.faComment} />
-                <p className="text-xs mx-3">Comment</p>
+                <div className="flex items-center">
+                  <ICON icon={IconRegular.faHeart} />
+                  <p className="text-xs mx-3">15</p>
+                </div>
+                <div className="flex items-center mx-3">
+                  <ICON icon={IconRegular.faComment} />
+                  <p className="text-xs mx-3">Comment</p>
+                </div>
               </div>
+
               <div className="flex items-center">
                 <p className="text-xs mx-3">7 min read</p>
                 <ICON icon={IconRegular.faBookmark} />

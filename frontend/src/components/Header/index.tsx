@@ -6,7 +6,7 @@ function Header() {
   const [isOpenNav, SetIsOpenNav] = React.useState(false);
   return (
     <>
-      <div className="bg-white shadow-md transition-all py-2 fixed left-0 right-0 top-0">
+      <div className="bg-white shadow-md transition-all py-2 fixed left-0 right-0 top-0 z-[2]">
         <div className="flex items-center justify-between xl:mx-[200px] min-h-[50px] ">
           <div className="hidden md:flex items-center border-[2px] border-[#D4D4D4] px-2 py-1 rounded-md">
             <input
