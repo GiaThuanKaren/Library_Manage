@@ -1,6 +1,6 @@
 import React from "react";
 import Mainlayout from "src/Layouts/Mainlayout";
-import { ICON, IconRegular } from "src/utils";
+import { ICON, IconRegular, IconSolid } from "src/utils";
 
 function DetailPage() {
   const [isTop, setisTop] = React.useState(false);
@@ -18,7 +18,8 @@ function DetailPage() {
         <div className={`${isTop ? "" : "  "}` + "basis-1/12 "}>
           <div
             className={
-              `${isTop ? "" : ""}` + "w-full flex flex-col items-center"
+              `${isTop ? "" : ""}` +
+              "w-full flex flex-col items-center hover:cursor-pointer"
             }
           >
             <div className="my-4">
@@ -32,6 +33,9 @@ function DetailPage() {
             <div className="my-4">
               <ICON icon={IconRegular.faBookmark} />
               <p>20</p>
+            </div>
+            <div className="my-4">
+              <ICON icon={IconSolid.faEllipsis} />
             </div>
           </div>
         </div>
