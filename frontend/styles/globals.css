@@ -27,3 +27,19 @@ a {
     background:  white;
   }
 }
+
+
+@layer base{
+  h1 {
+    @apply text-3xl font-bold
+  }
+  a{
+    @apply underline
+  }
+  blockquote{
+    @apply block mt-4 mb-4 ml-10 mr-10
+  }
+  ul{
+    @apply list-decimal
+  }
+}

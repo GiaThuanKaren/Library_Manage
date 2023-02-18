@@ -36,7 +36,7 @@ function Header() {
             <ICON className="md:hidden" icon={IconSolid.faSearch} />
 
             <Link
-              href={`/`}
+              href={`/new`}
               className="md:flex hidden hover:bg-blue-600 hover:text-white hover:font-medium  border-[2px] border-[#D4D4D4] px-3 py-2 rounded-md items-center justify-center"
             >
               <p>Create Post</p>
@@ -51,7 +51,7 @@ function Header() {
               alt="Rounded avatar"
             />
             {isOpenNav && (
-              <ul className="shadow-md rounded-md h-[300px] w-screen  sm:w-[250px] bg-white absolute z-[1] top-[calc(100%_+_10px)] right-0 px-2 py-1">
+              <ul className="list-none shadow-md rounded-md h-[300px] w-screen  sm:w-[250px] bg-white absolute z-[1] top-[calc(100%_+_10px)] right-0 px-2 py-1">
                 <li className="p-2 border-b-[2px] border-[#D4D4D4]">
                   <h3 className="font-medium text-sm whitespace-nowrap">
                     Nguyễn Quang Gia Thuận

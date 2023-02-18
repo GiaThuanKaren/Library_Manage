@@ -1,10 +1,16 @@
 import React, { FC } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Mainlayout from "src/Layouts/Mainlayout";
-
-const Edit: FC = function () {
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+interface Prop {
+  text: string;
+  handleFUNC: React.Dispatch<React.SetStateAction<string>>;
+}
+const Edit: FC<Prop> = function ({ handleFUNC, text }) {
   const InputEle = React.useRef<any>();
   const [ImageUrl, SetImageurl] = React.useState("");
+
   React.useEffect(() => {}, []);
   return (
     <>
@@ -26,8 +32,8 @@ const Edit: FC = function () {
       </div>
       <input
         onChange={(e) => {
-          console.log(e.target.files?.item(0));
-          SetImageurl(URL.createObjectURL(e.target.files?.item(0)).toString());
+          console.log(e.target.files[0]);
+          SetImageurl(URL.createObjectURL(e.target?.files[0]));
         }}
         ref={InputEle}
         placeholder="Add a cover image"
@@ -39,18 +45,49 @@ const Edit: FC = function () {
         className="font-medium text-3xl outline-none border-none my-3"
         placeholder={`${"New post title here....."}`}
       />
-      <textarea aria-multiline  className="block w-full outline-none border-none min-h-[30vh] focus:outline-none"></textarea>
+      <textarea
+        value={text}
+        onChange={(e) => {
+          handleFUNC(e.target.value);
+        }}
+        aria-multiline
+        className="block w-full outline-none border-none min-h-[30vh] focus:outline-none"
+      ></textarea>
+      <div className="text-black"></div>
     </>
   );
 };
 
-const Review: FC = function () {
-  return <></>;
+const Review: FC<Prop> = function ({ text }) {
+  const markdown = `A paragraph with *emphasis* and **strong importance**.
+
+> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+* Lists
+* [ ] todo
+* [x] done
+
+A table:
+
+| a | b |
+| - | - |
+`;
+  return (
+    <>
+      {text ? (
+        <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />
+      ) : (
+        <>
+          <h1 className="text-center">Nothing To Review </h1>
+        </>
+      )}
+    </>
+  );
 };
 
 function CreateNew() {
   const [chooseTab, setchooseTab] = React.useState("edit");
-
+  const [textMarkDown, SettextMarkDown] = React.useState("");
   const ArrTab = [
     {
       title: "edit",
@@ -83,7 +120,11 @@ function CreateNew() {
           })}
         </div>
         <div className="relative h-[70vh] overflow-y-auto">
-          {chooseTab === "edit" ? <Edit /> : <Review />}
+          {chooseTab === "edit" ? (
+            <Edit handleFUNC={SettextMarkDown} text={textMarkDown} />
+          ) : (
+            <Review handleFUNC={SettextMarkDown} text={textMarkDown} />
+          )}
         </div>
       </Mainlayout>
     </>
