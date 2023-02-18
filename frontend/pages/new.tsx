@@ -32,8 +32,9 @@ const Edit: FC<Prop> = function ({ handleFUNC, text }) {
       </div>
       <input
         onChange={(e) => {
-          console.log(e.target.files[0]);
-          SetImageurl(URL.createObjectURL(e.target?.files[0]));
+          const files: FileList | null = e.target.files;
+
+          SetImageurl(URL.createObjectURL(files?.item(0) as Blob));
         }}
         ref={InputEle}
         placeholder="Add a cover image"
