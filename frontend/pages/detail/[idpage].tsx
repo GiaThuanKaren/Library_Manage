@@ -73,6 +73,31 @@ function DetailPage() {
             <h1 className="font-bold text-4xl my-3">
               Build your next website with Astro
             </h1>
+
+            <div className="min-h-[200px] w-full bg-red-300 rounded-xl">
+              <div className="flex  py-2 items-center justify-between">
+                <div className="flex items-center">
+                  <LazyLoadImage
+                    onClick={() => {}}
+                    className="w-10 h-10 rounded-full mr-3"
+                    src="https://res.cloudinary.com/practicaldev/image/fetch/s--z84t-n32--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/1010892/81fb495f-5a6d-4ed3-a61f-8993a237072e.jpg"
+                    alt="Rounded avatar"
+                  />
+                  <div>
+                    <h3 className="font-medium text-base whitespace-nowrap">
+                      Nguyễn Quang Gia Thuận
+                    </h3>
+                    <p className="text-xs">
+                      Posted on Feb 16 • Originally published at
+                      codebase.substack.com
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center px-4  py-2  bg-blue-600 rounded-lg   ">
+                  <p className="text-white font-medium">Follow</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={`${isTop ? "" : " "}` + "basis-2/12"}>

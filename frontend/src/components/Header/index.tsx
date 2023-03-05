@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ICON, IconRegular, IconSolid } from "src/utils";
 import LeftSideBar from "../LeftSideBar";
 
@@ -24,6 +25,10 @@ function Header() {
         )}
         <div className="flex items-center justify-between xl:mx-[200px] min-h-[50px] ">
           <div className="hidden md:flex items-center border-[2px] border-[#D4D4D4] px-2 py-1 rounded-md">
+            <LazyLoadImage
+              src="https://cdn.dribbble.com/userupload/4784370/file/original-1fd139cd70b879042db53b45413b5c1d.jpg?compress=1&resize=1024x768"
+              className="h-full w-[40px]"
+            />
             <input
               className="outline-none border-none"
               type="text"

@@ -1,9 +1,4 @@
-print("Nhap So A");
-a = int(input());
-print("Nhap So B");
-b = int(input())
-
-print("Tong ",a+b);
-print("Hieu ",a-b);
-print("Tich ",a*b);
-print("Thuong ",float(a/b));
+lst ={5,7,2,9,6,3,10,17,16}
+for i in range(len(lst)-1,-1,-1):
+    x=lst(i)
+    print(x,end='\t')
