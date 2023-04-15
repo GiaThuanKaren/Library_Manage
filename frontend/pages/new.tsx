@@ -3,58 +3,44 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Mainlayout from "src/Layouts/Mainlayout";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import dynamic from "next/dynamic";
+import { CreateNewPost } from "src/service/api";
 interface Prop {
   text: string;
   handleFUNC: React.Dispatch<React.SetStateAction<string>>;
 }
+const Editor = dynamic(() => import("../src/components/Editor/index"), { ssr: false });
+
+
 const Edit: FC<Prop> = function ({ handleFUNC, text }) {
   const InputEle = React.useRef<any>();
   const [ImageUrl, SetImageurl] = React.useState("");
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => { }, []);
+  const handleCreatePost = async function () {
+    try {
+      let result = await CreateNewPost()
+      console.log(result)
+    } catch (e) {
+      throw e
+    }
+  }
   return (
     <>
-      <div className="min-h-24 max-h-36 w-full overflow-hidden ">
-        <LazyLoadImage
-          className="h-full object-fill"
-          src={ImageUrl ? ImageUrl : ""}
-        />
+      <div className="h-20">
+        <div className="h-full w-full">
+          <img src={ImageUrl} alt={ImageUrl} />
+        </div>
       </div>
-      <div
-        className="w-max px-3 py-2 border-[2px] border-b-rose-300 rounded-md hover:cursor-pointer font-medium"
-        onClick={async () => {
-          await InputEle.current.click();
-
-          console.log();
-        }}
-      >
-        Add a cover image
+      <Editor onChange={() => { }} value={""} />
+      <input type="file" name="tenfile" id="" />
+      <div onClick={handleCreatePost} className="flex justify-end">
+        <p
+          className="cursor-pointer md:flex hidden hover:bg-blue-600 hover:text-white hover:font-medium  border-[2px] border-[#D4D4D4] px-3 py-2 rounded-md items-center justify-center"
+        >Save</p>
       </div>
-      <input
-        onChange={(e) => {
-          const files: FileList | null = e.target.files;
-
-          SetImageurl(URL.createObjectURL(files?.item(0) as Blob));
-        }}
-        ref={InputEle}
-        placeholder="Add a cover image"
-        type={"file"}
-        className="hidden w-max px-3 py-2 border-[2px] border-b-rose-300 rounded-md"
-      />
-      <input
-        type="text"
-        className="font-medium text-3xl outline-none border-none my-3"
-        placeholder={`${"New post title here....."}`}
-      />
-      <textarea
-        value={text}
-        onChange={(e) => {
-          handleFUNC(e.target.value);
-        }}
-        aria-multiline
-        className="block w-full outline-none border-none min-h-[30vh] focus:outline-none"
-      ></textarea>
-      <div className="text-black"></div>
     </>
   );
 };
