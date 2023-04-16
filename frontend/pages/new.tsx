@@ -26,19 +26,12 @@ const Edit: FC<Prop> = function ({ handleFUNC, text }) {
   const handleCreatePost = async function () {
     try {
       let result = await CreateNewPost("telskdj", "sldifj", ImageUrl?.filesImage as File)
-      console.log(result)
+      console.log(result.data)
     } catch (e) {
       throw e
     }
   }
-  const HandleChooseCover = async function () {
-    try {
-
-
-    } catch (error) {
-      throw error
-    }
-  }
+  
 
   return (
     <>
