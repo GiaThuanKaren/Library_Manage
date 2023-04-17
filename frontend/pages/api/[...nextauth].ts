@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions, User } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-export const authOptions = {
+export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -16,10 +16,11 @@ export const authOptions = {
       session,
       token,
       user,
+
     }: {
       session: any;
       token: any;
-      user: any;
+      user: User;
     }) => {
       if (session?.user) {
         session.user.id = user.id;

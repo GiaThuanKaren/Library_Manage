@@ -7,8 +7,11 @@ function LayoutBasis1({ children }: Props) {
   return (
     <>
       <Header />
-      {children}
-      <div>LayoutBasis1</div>
+      <div className="mt-[70px]">
+        {children}
+
+      </div>
+
     </>
   );
 }

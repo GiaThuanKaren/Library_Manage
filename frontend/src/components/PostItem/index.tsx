@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   LazyLoadImage,
@@ -13,12 +14,14 @@ function PostItem() {
           src="https://res.cloudinary.com/practicaldev/image/fetch/s--CJz0aV1N--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ducb2d4iomdy10i43g3u.png"
           alt=""
         />
-        <div className="flex items-center mt-3">
-          <img
-            className="w-10 h-10 rounded-full"
-            src="https://res.cloudinary.com/practicaldev/image/fetch/s--z84t-n32--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/1010892/81fb495f-5a6d-4ed3-a61f-8993a237072e.jpg"
-          />
-        </div>
+        <Link href={"/user/thuan"}>
+          <div className="flex items-center mt-3">
+            <img
+              className="w-10 h-10 rounded-full"
+              src="https://res.cloudinary.com/practicaldev/image/fetch/s--z84t-n32--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/1010892/81fb495f-5a6d-4ed3-a61f-8993a237072e.jpg"
+            />
+          </div>
+        </Link>
         <div className="flex justify-center w-full">
           <div className="w-[90%] my-2">
             <p className="font-medium text-xl">
