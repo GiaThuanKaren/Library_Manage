@@ -6,14 +6,12 @@ import { PostItem, WrapperList } from "src/components";
 import Mainlayout from "src/Layouts/Mainlayout";
 import styles from "../styles/Home.module.css";
 import React from "react";
+import { GetAllPost } from "src/service/api";
+import { PostItemInf } from "src/Model";
 export default function Home() {
   const router = useRouter();
   console.log(router.asPath);
-  const [properties, setProperties] = React.useState(() => {
-    const arr = Array.from(Array(10).keys());
-
-    return arr;
-  });
+  const [properties, setProperties] = React.useState<PostItemInf[]>([]);
   console.log(properties);
   const TabsHome = [
     {
@@ -25,7 +23,18 @@ export default function Home() {
       href: "/latest",
     },
   ];
+  React.useEffect(() => {
+    async function FetchApi() {
+      try {
+        let result = await GetAllPost();
+        console.log(result)
+        setProperties(result.articles)
+      } catch (error) {
 
+      }
+    }
+    FetchApi();
+  }, [])
   return (
     <>
       <Mainlayout>
@@ -41,10 +50,10 @@ export default function Home() {
               );
             })}
           </div>
-          {properties.map((item: any, index: number) => {
+          {properties.map((item: PostItemInf, index: number) => {
             return (
               <>
-                <PostItem />
+                <PostItem  {...item} />
               </>
             );
           })}

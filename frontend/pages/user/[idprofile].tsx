@@ -31,7 +31,7 @@ function PersonalProfile() {
                 </div>
                 <h3 className='text-black my-7'>Recently Updated</h3>
 
-                <PostItem />
+                {/* <PostItem  /> */}
 
                 {/* <LayoutBasis1>
 

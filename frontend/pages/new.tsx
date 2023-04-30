@@ -17,6 +17,9 @@ const Editor = dynamic(() => import("../src/components/Editor/index"), { ssr: fa
 
 const Edit: FC<Prop> = function ({ handleFUNC, text }) {
   const InputEle = React.useRef<any>();
+  const [title, setTitle] = React.useState<string>("")
+  const [bodyText, setBodyText] = React.useState("")
+
   const [ImageUrl, SetImageurl] = React.useState<{
     url: string;
     filesImage: File
@@ -25,30 +28,36 @@ const Edit: FC<Prop> = function ({ handleFUNC, text }) {
   React.useEffect(() => { }, []);
   const handleCreatePost = async function () {
     try {
-      let result = await CreateNewPost("telskdj", "sldifj", ImageUrl?.filesImage as File)
-      console.log(result.data)
+      let result = await CreateNewPost(title, bodyText, ImageUrl?.filesImage as File)
+      console.log(result?.data)
     } catch (e) {
       throw e
     }
   }
-  
+
 
   return (
     <>
 
-      <div className="h-44">
+      <div className={ImageUrl?.filesImage ? "h-44" : ""}>
         <div className="h-full w-full overflow-hidden">
           <img className="h-full w-full object-contain" src={ImageUrl?.url} alt={ImageUrl?.url} />
         </div>
       </div>
-      <div onClick={() => {
-        InputEle.current.click();
-      }} className="flex justify-end">
-        <p
+      <div className="flex justify-end">
+        <p onClick={() => {
+          InputEle.current.click();
+        }}
           className="cursor-pointer md:flex hidden hover:bg-blue-600 hover:text-white hover:font-medium  border-[2px] border-[#D4D4D4] px-3 py-2 rounded-md items-center justify-center"
         >Choose Cover</p>
       </div>
-      <Editor onChange={() => { }} value={""} />
+      <input value={title} onChange={(e) => {
+        setTitle(e.target.value)
+      }} type="text" placeholder="Default Title" className="w-full outline-none border-none font-medium text-2xl" />
+      <Editor onChange={(text1: any) => {
+        setBodyText(text1)
+        console.log("text comming", text1)
+      }} value={bodyText} />
       <input onChange={(e) => {
         let files = e.target?.files?.item(0)
         let link = URL.createObjectURL(files as Blob)
@@ -57,8 +66,8 @@ const Edit: FC<Prop> = function ({ handleFUNC, text }) {
           filesImage: files as File
         })
       }} className="hidden" ref={InputEle} type="file" name="tenfile" id="" />
-      <div onClick={handleCreatePost} className="flex justify-end">
-        <p
+      <div className="flex justify-end">
+        <p onClick={handleCreatePost}
           className="cursor-pointer md:flex hidden hover:bg-blue-600 hover:text-white hover:font-medium  border-[2px] border-[#D4D4D4] px-3 py-2 rounded-md items-center justify-center"
         >Save</p>
       </div>
