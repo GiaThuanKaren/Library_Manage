@@ -1,6 +1,7 @@
 import React from 'react'
 import LayoutBasis1 from "src/Layouts/LayoutBasis1";
 import Mainlayout from 'src/Layouts/Mainlayout';
+import { PostItem } from 'src/components';
 
 function PersonalProfile() {
 
@@ -28,8 +29,12 @@ function PersonalProfile() {
                     </div>
 
                 </div>
-                <h3 className='text-black'>lkshdlkhsfdlkhkl</h3>
+                <h3 className='text-black my-7'>Recently Updated</h3>
+
+                <PostItem />
+
                 {/* <LayoutBasis1>
+
                 </LayoutBasis1> */}
             </Mainlayout>
         </>

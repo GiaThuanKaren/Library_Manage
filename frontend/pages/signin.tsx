@@ -2,6 +2,8 @@ import React from "react";
 import LayoutBasis1 from "src/Layouts/LayoutBasis1";
 import Mainlayout from "src/Layouts/Mainlayout";
 import { ICON, IconBrands } from "src/utils";
+import { useSession, signIn as SignIN, signOut, getSession } from "next-auth/react";
+
 interface ProviderProp {
   name: string;
   bgColor: string;
@@ -11,30 +13,35 @@ function signin() {
   const Provider: ProviderProp[] = [
     {
       bgColor: "bg-black",
-      Icon: <ICON className="text-white" icon={IconBrands.faApple} />,
-      name: "Apple",
-    },
-    {
-      bgColor: "bg-black",
-      Icon: <ICON className="text-white" icon={IconBrands.faFreeCodeCamp} />,
-      name: "Apple",
-    },
-    {
-      bgColor: "bg-black",
-      Icon: <ICON className="text-white" icon={IconBrands.faGithub} />,
-      name: "Apple",
-    },
-    {
-      bgColor: "bg-black",
-      Icon: <ICON className="text-white" icon={IconBrands.faTwitter} />,
-      name: "Apple",
-    },
-    {
-      bgColor: "bg-cyan-400",
       Icon: <ICON className="text-white" icon={IconBrands.faGoogle} />,
-      name: "Apple",
+      name: "google",
     },
+    {
+      bgColor: "bg-blue-300",
+      Icon: <ICON className="text-white" icon={IconBrands.faFacebook} />,
+      name: "facebook",
+    },
+
   ];
+  const handleOAuthSignIn = async (provider: string) => {
+    localStorage.setItem("salstream_provider", provider)
+    try {
+      console.log("[PROVIDER]", provider);
+
+      let result = await SignIN(provider, {
+        redirect: true,
+        callbackUrl: "/",
+        addedParam: "My added parameter"
+      })
+
+      if (result?.error) {
+        // console.log(session?.user, "USER AFTER LOGIN INNNNNNNNNN"); // full account information
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <LayoutBasis1>
@@ -49,13 +56,16 @@ function signin() {
               return (
                 <>
                   <div
+                    onClick={() => {
+                      handleOAuthSignIn(item.name)
+                    }}
                     className={
                       "flex items-center justify-center w-full text-center h-12 my-3 rounded-lg" +
                       ` ${item.bgColor}`
                     }
                   >
                     {item.Icon}
-                    <p className=" mx-3 text-white font-medium">
+                    <p className=" mx-3 text-white font-medium capitalize       ">
                       Continues with {item.name}
                     </p>
                   </div>
