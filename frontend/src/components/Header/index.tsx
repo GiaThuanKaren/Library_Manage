@@ -3,6 +3,7 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ICON, IconRegular, IconSolid } from "src/utils";
 import LeftSideBar from "../LeftSideBar";
+import { signOut } from "next-auth/react";
 
 function Header() {
   const [isOpenNav, SetIsOpenNav] = React.useState(false);
@@ -67,7 +68,9 @@ function Header() {
                 <li className="p-2">Create Post</li>
                 <li className="p-2">Reading List</li>
                 <li className="p-2">Settings</li>
-                <li className="p-2 border-t-[2px] border-[#D4D4D4]">
+                <li onClick={()=>{
+                  signOut()
+                }} className="p-2 border-t-[2px] border-[#D4D4D4]">
                   Sign Out
                 </li>
               </ul>
