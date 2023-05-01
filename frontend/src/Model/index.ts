@@ -18,7 +18,7 @@ export interface PostItemInf {
     created_at: CreatedAt
     edited_at: any
     cover_image: string
-    user: User
+    user: User[]
 }
 
 export interface Id {
@@ -30,5 +30,13 @@ export interface CreatedAt {
 }
 
 export interface User {
+    _id: Id2
+    email: string
+    emailVerified: any
+    image: string
+    name: string
+}
+
+export interface Id2 {
     $oid: string
 }

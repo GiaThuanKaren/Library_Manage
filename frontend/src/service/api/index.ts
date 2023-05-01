@@ -4,20 +4,34 @@ import { MSG, ShowToastify } from "src/utils";
 const BASE_URL_Dev: string = "http://127.0.0.1:5500";
 const BASE_URL_PRO: string = "https://devto.onrender.com/api/v1"
 
-export const InsertNewComment = async function (_idPost: string, body: any, _idParent: string) {
+export const InsertNewComment = async function (_idPost: string, body: any, _idParent: string = "") {
+  let userId = localStorage.getItem("user")
   try {
     let result = await axios.post(`${BASE_URL_PRO}/createComment`, {
-      "_idPost": "63fcd0ef5c8f9f3ca1bd3396",
-      "body": "It's great wonderfull.",
-      "userId": "63ef7b21bfac48fc04433536",
+      "_idPost": _idPost,
+      "body": body,
+      "userId": JSON.parse(userId as string),
 
-      "_idParent": ""
+      "_idParent": _idParent
     })
-
+    ShowToastify("SUCESS", "Thanks Your Feedback")
   } catch (e) {
-    ShowToastify("ERROR")
+    ShowToastify("ERROR", "Opps Something Went Wrong , Pleasy Refresh Your Page")
   }
 };
+
+
+export const GetAllComment = async function (idPost: string, idParent: string = "") {
+  try {
+    const result = await axios.post(`${BASE_URL_PRO}/getAllComment`, {
+      "_idPost": idPost,
+      "_idParent": idParent
+    })
+  } catch (error) {
+    ShowToastify("ERROR")
+  }
+}
+
 
 export const CreateNewPost = async function (title: string, body: any, cover_image: File) {
   try {
@@ -53,4 +67,16 @@ export const GetAllPost = async function () {
     ShowToastify("ERROR")
   }
 }
+
+
+
+export const GetDetailPost = async function (id: string) {
+  try {
+    let result = await axios.get(`${BASE_URL_PRO}/getArticle/${id}`)
+    return result.data
+  } catch (error) {
+    ShowToastify("ERROR")
+  }
+}
+
 

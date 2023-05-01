@@ -33,7 +33,7 @@ export default function App({
     <>
       <SessionProvider session={session}>
         <Component {...pageProps} />
-        <ToastContainer />
+        <ToastContainer autoClose={800}  />
       </SessionProvider>
     </>
   );
