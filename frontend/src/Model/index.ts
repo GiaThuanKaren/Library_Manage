@@ -40,3 +40,39 @@ export interface User {
 export interface Id2 {
     $oid: string
 }
+
+
+
+export interface CommentInf {
+    _id: Id
+    author: Author[]
+    body: string
+    date: Date
+    isPositive: boolean
+    likes: any[]
+    parent_id: string
+    parent_post: ParentPost
+    replies: any[]
+  }
+  
+  export interface Id {
+    $oid: string
+  }
+  
+  export interface Author {
+    _id: Id2
+    email: string
+    emailVerified: any
+    image: string
+    name: string
+  }
+  
+
+  export interface Date {
+    $date: string
+  }
+  
+  export interface ParentPost {
+    $oid: string
+  }
+  

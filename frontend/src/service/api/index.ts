@@ -27,6 +27,7 @@ export const GetAllComment = async function (idPost: string, idParent: string = 
       "_idPost": idPost,
       "_idParent": idParent
     })
+    return result.data
   } catch (error) {
     ShowToastify("ERROR")
   }

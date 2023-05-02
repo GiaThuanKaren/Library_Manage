@@ -1,5 +1,8 @@
+import { useRouter } from "next/router";
 import React from "react"
-import { InsertNewComment } from "src/service/api";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { CommentInf } from "src/Model";
+import { GetAllComment, InsertNewComment } from "src/service/api";
 import { ShowToastify } from "src/utils";
 interface Props {
   idPost: string;
@@ -45,7 +48,7 @@ export const CommentInput = function ({ idPost, parentID }: Props) {
         onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
           if (e.code == "Enter") {
             console.log([InputCommentEle.current]);
-            handleComment("")
+            handleComment(parentID as string)
           }
         }}
         ref={InputCommentEle}
@@ -64,11 +67,105 @@ export const CommentInput = function ({ idPost, parentID }: Props) {
 }
 
 
-export const ReplyComment = function () {
+export const ReplyComment = function ({ _id, author, body, date, isPositive, likes, parent_id, parent_post, replies }: CommentInf) {
   const [openReplyInput, setopenReplyInput] = React.useState(false);
   const [openReplyComment, setopenReplyComment] = React.useState(false);
   const [ArrCommentReply, setArrCommentReply] = React.useState<any>([]);
-  return <>
 
+  const HandleLoadMoreComment = async function (parentID: string,
+    Currstate: boolean) {
+    try {
+      if (Currstate) {
+        setopenReplyComment(false)
+      } else {
+
+
+        let result = await GetAllComment(parent_post.$oid, parentID)
+        // let result = await getAllReplied(postId, _id)
+        // console.log(result)
+
+        setArrCommentReply(result?.comment);
+        setopenReplyComment(true);
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+  return <>
+    <div className="flex py-3 my-1 mr-2 ">
+      <div className="h-10 w-10 rounded-full overflow-hidden mr-5 mt-1 mb-3">
+        <LazyLoadImage
+          className="h-full w-full object-cover"
+          src={author[0].image}
+        />
+      </div>
+      <div>
+        <p className="text-black text-base font-medium">{body} </p>
+        <p className="text-white text-xs font-light">
+
+        </p>
+        <p
+          onClick={() => {
+            setopenReplyInput(!openReplyInput);
+          }}
+          className="  font-medium text-xs text-black my-1"
+        >
+          {openReplyInput ? "Cancel" : "Reply"}
+        </p>
+      </div>
+    </div>
+    {
+      openReplyInput &&
+      <CommentInput idPost={parent_post.$oid} parentID={_id.$oid} />
+    }
+    <div className="pl-3">
+      {
+        replies.length > 0 && <>
+          <p onClick={() => {
+            HandleLoadMoreComment(_id.$oid, openReplyComment)
+          }} className='text-black font-medium'> {openReplyComment ? "Hide" : "View More"}</p>
+        </>
+      }
+      {
+        openReplyComment && replies.length > 0 && ArrCommentReply.map((item: CommentInf, index: number) => {
+          return <>
+            <ReplyComment key={index} {...item} />
+          </>
+        })
+      }
+    </div>
+
+
+  </>
+}
+
+
+export const ListComment = function ({ idPost }: {
+  idPost: string
+}) {
+  const [dataComment, setDataComment] = React.useState<CommentInf[]>([]);
+
+  React.useEffect(() => {
+    async function FetchApi() {
+      try {
+        let result = await GetAllComment(idPost, "");
+        setDataComment(result["comment"])
+      } catch (error) {
+
+      }
+    }
+    if (idPost) {
+      FetchApi()
+    }
+  }, [idPost])
+  return <>
+    <CommentInput idPost={idPost} parentID={""} />
+    {
+      dataComment.map((item: CommentInf, index: number) => {
+        return <>
+          <ReplyComment {...item} />
+        </>
+      })
+    }
   </>
 }

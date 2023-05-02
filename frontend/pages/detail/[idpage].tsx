@@ -4,7 +4,7 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Mainlayout from "src/Layouts/Mainlayout";
 import { PostItemInf } from "src/Model";
-import { CommentInput } from "src/components/Comment";
+import { CommentInput, ListComment } from "src/components/Comment";
 import { GetDetailPost } from "src/service/api";
 import { ICON, IconRegular, IconSolid } from "src/utils";
 
@@ -132,7 +132,9 @@ function DetailPage({ paramsUrl }: Props) {
               </div>
             </div>
           </div>
-          <CommentInput idPost={data?._id.$oid as string} />
+          <ListComment idPost={idpage as string} />
+          {/* <CommentInput idPost={data?._id.$oid as string} /> */}
+
 
 
         </div>
