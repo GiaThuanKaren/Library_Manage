@@ -81,3 +81,10 @@ export const GetDetailPost = async function (id: string) {
 }
 
 
+export const GetAllPostByIdUser = async function(id:string){
+  try {
+    // let result = await
+  } catch (error) {
+      ShowToastify("ERROR")
+  }
+}

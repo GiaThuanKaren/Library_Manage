@@ -3,11 +3,34 @@ import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ICON, IconRegular, IconSolid } from "src/utils";
 import LeftSideBar from "../LeftSideBar";
-import { signOut } from "next-auth/react";
-
+import { getSession, signOut, useSession } from "next-auth/react";
+interface UserInf {
+  image: string;
+  name: string;
+  email: string;
+  id: string
+}
 function Header() {
   const [isOpenNav, SetIsOpenNav] = React.useState(false);
   const [isOpenDrawer, SetIsOpenDrawer] = React.useState(false);
+  const [dataUser, setDataUser] = React.useState<UserInf>({
+    email: "",
+    id: "",
+    image: "",
+    name: ""
+  })
+  React.useEffect(() => {
+    async function FetchApi() {
+      try {
+        let result: any = await getSession();
+        console.log(result?.user?.id, "User Id")
+        setDataUser(result.user)
+      } catch (error) {
+
+      }
+    }
+    FetchApi()
+  }, [])
 
   return (
     <>
@@ -53,22 +76,26 @@ function Header() {
                 SetIsOpenNav(!isOpenNav);
               }}
               className="w-10 h-10 rounded-full"
-              src="https://res.cloudinary.com/practicaldev/image/fetch/s--z84t-n32--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/1010892/81fb495f-5a6d-4ed3-a61f-8993a237072e.jpg"
+              src={dataUser.image}
               alt="Rounded avatar"
             />
-            {isOpenNav && (
+            {isOpenNav && dataUser.id != "" && (
               <ul className="list-none shadow-md rounded-md h-[300px] w-screen  sm:w-[250px] bg-white absolute z-[1] top-[calc(100%_+_10px)] right-0 px-2 py-1">
                 <li className="p-2 border-b-[2px] border-[#D4D4D4]">
                   <h3 className="font-medium text-sm whitespace-nowrap">
-                    Nguyễn Quang Gia Thuận
+                    {dataUser.name}
                   </h3>
                   <h4 className="font-light font-xs">@giathuankaren</h4>
                 </li>
-                <li className="p-2">Dashboard</li>
-                <li className="p-2">Create Post</li>
+                <Link href={`/user/${dataUser.id}`}>
+                  <li className="p-2">Dashboard</li>
+                </Link>
+                <Link href={`/new`}>
+                  <li className="p-2">Create Post</li>
+                </Link>
                 <li className="p-2">Reading List</li>
                 <li className="p-2">Settings</li>
-                <li onClick={()=>{
+                <li onClick={() => {
                   signOut()
                 }} className="p-2 border-t-[2px] border-[#D4D4D4]">
                   Sign Out

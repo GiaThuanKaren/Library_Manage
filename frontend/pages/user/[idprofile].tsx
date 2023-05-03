@@ -1,10 +1,29 @@
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import LayoutBasis1 from "src/Layouts/LayoutBasis1";
 import Mainlayout from 'src/Layouts/Mainlayout';
 import { PostItem } from 'src/components';
 
-function PersonalProfile() {
 
+
+
+function PersonalProfile() {
+    const { idprofile } = useRouter().query;
+
+    React.useEffect(() => { 
+        async function FetchAPi(){
+            try {
+                
+            } catch (error) {
+                
+            }
+        }
+        
+    }, [idprofile])
+
+    const { data: session, status } = useSession()
     return (
         <>
             <Mainlayout>
@@ -16,8 +35,9 @@ function PersonalProfile() {
                         <div className='flex flex-col items-center'>
                             <div className='h-32 w-32 bg-red-500 rounded-full overflow-hidden'>
                                 {/*  Image Profile */}
+                                <LazyLoadImage className='w-full h-full object-contain object-center' src={session?.user?.image as string} />
                             </div>
-                            <h3 className='text-black font-bold'>Ben Halpern</h3>
+                            <h3 className='text-black font-bold'>{session?.user?.name as string} </h3>
                         </div>
                         <div onClick={() => {
 
@@ -31,11 +51,6 @@ function PersonalProfile() {
                 </div>
                 <h3 className='text-black my-7'>Recently Updated</h3>
 
-                {/* <PostItem  /> */}
-
-                {/* <LayoutBasis1>
-
-                </LayoutBasis1> */}
             </Mainlayout>
         </>
     )

@@ -10,8 +10,8 @@ function WrapperList({ children }: { children: any }) {
         <div className="hidden md:block basis-1/5 px-4">
           <LeftSideBar />
         </div>
-        <div className=" lg:basis-3/5 h-32">{children}</div>
-        <div className="hidden lg:block basis-1/5 h-32 bg-green-300"></div>
+        <div className=" lg:basis-4/5 h-32">{children}</div>
+        {/* <div className="hidden lg:block basis-1/5 h-32 bg-green-300"></div> */}
       </div>
     </>
   );
