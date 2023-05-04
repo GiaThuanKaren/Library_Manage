@@ -55,10 +55,13 @@ function PostItem({ optionAdmin, _id, body, bookmarks, comments_count, cover_ima
               <div className="flex items-center">
                 <p className="text-xs mx-3">{readingTime(body)} min read</p>
                 <ICON icon={IconRegular.faBookmark} />
-                <ICON onClick={(e) => {
-                  e.stopPropagation();
-                  push(`/detail/edit/${_id.$oid}`)
-                }} className="ml-4 p-5 hover:cursor-pointer" icon={IconSolid.faEllipsisV} />
+                {
+                  optionAdmin &&
+                  <ICON onClick={(e) => {
+                    e.stopPropagation();
+                    push(`/detail/edit/${_id.$oid}`)
+                  }} className="ml-4 p-5 hover:cursor-pointer" icon={IconSolid.faEllipsisV} />
+                }
               </div>
 
             </div>

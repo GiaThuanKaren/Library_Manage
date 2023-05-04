@@ -6,7 +6,7 @@ import Mainlayout from "src/Layouts/Mainlayout";
 import { PostItemInf } from "src/Model";
 import { CommentInput, ListComment } from "src/components/Comment";
 import { GetDetailPost } from "src/service/api";
-import { ICON, IconRegular, IconSolid } from "src/utils";
+import { FormatDate, ICON, IconRegular, IconSolid } from "src/utils";
 
 interface Props {
   paramsUrl: string
@@ -92,7 +92,7 @@ function DetailPage({ paramsUrl }: Props) {
                   {data?.user[0].name}
                 </h3>
                 <p className="text-xs">
-                  Posted on Feb 16 • Originally published at
+                  Posted on {FormatDate(data?.created_at.$date as string)} • Originally published at
                   codebase.substack.com
                 </p>
               </div>

@@ -3,6 +3,7 @@ import * as IconSolid from "@fortawesome/free-solid-svg-icons";
 import * as IconRegular from "@fortawesome/free-regular-svg-icons";
 import * as IconBrands from "@fortawesome/free-brands-svg-icons";
 import { ToastContainer, toast } from 'react-toastify';
+import moment from "moment";
 export { ICON, IconBrands, IconRegular, IconSolid };
 export const MSG = function (msg: string, data: any = null, other: any = null) {
     return {
@@ -32,5 +33,11 @@ export const readingTime = function (textBody: string) {
     const words = textBody.trim().split(/\s+/).length;
     const time = Math.ceil(words / wpm);
     return time
+
+}
+
+
+export const FormatDate = function (stringDate: string, formatType: string = "MMM Do YY") {
+    return moment(stringDate).format(formatType)
 
 }

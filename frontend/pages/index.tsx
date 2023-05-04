@@ -53,7 +53,7 @@ export default function Home() {
           {properties.map((item: PostItemInf, index: number) => {
             return (
               <>
-                <PostItem  {...item} />
+                <PostItem  optionAdmin={false}    {...item} />
               </>
             );
           })}

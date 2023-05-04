@@ -1,16 +1,19 @@
 
+import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router'
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Mainlayout from 'src/Layouts/Mainlayout';
 import { PostItemInf } from 'src/Model';
-import { GetDetailPost, UpdatePost } from 'src/service/api';
+import { DeletePost, GetDetailPost, UpdatePost } from 'src/service/api';
 import { ICON, IconRegular, IconSolid } from 'src/utils';
 const Editor = dynamic(() => import("src/components/Editor/index"), { ssr: false });
 
 function EditPage() {
     const [isTop, setisTop] = React.useState(false);
+    const { data: session, status } = useSession()
+
     const { idpost } = useRouter().query
     const [data, setData] = React.useState<PostItemInf>()
     const [title, setTitle] = React.useState<string>("")
@@ -36,7 +39,7 @@ function EditPage() {
         }
     }
     const HandleSetData = function (key: "image" | "title" | "cover_image" | "body", value: any) {
-         
+
     }
 
     React.useEffect(() => {
@@ -57,6 +60,8 @@ function EditPage() {
 
             }
         }
+        let users: any = session?.user
+        console.log(users?.id)
         if (idpost) {
             FetchApi()
             console.log(idpost)
@@ -78,6 +83,9 @@ function EditPage() {
                             Save
                         </p>
                         <p
+                            onClick={() => {
+                                DeletePost(data?._id.$oid as string)
+                            }}
                             className="mx-3 md:flex hidden hover:cursor-pointer hover:bg-red-400 bg-red-600 text-white hover:font-medium  border-[2px] border-[#D4D4D4] px-3 py-2 rounded-md items-center justify-center"
 
                         >

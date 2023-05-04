@@ -58,7 +58,7 @@ function PersonalProfile() {
                     dataPost.map((item: PostItemInf, index: number) => {
                         return (
                             <>
-                                <PostItem {...item} />
+                                <PostItem optionAdmin={false} {...item} />
                             </>
                         )
                     })

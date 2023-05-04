@@ -65,6 +65,15 @@ export const CreateNewPost = async function (title: string, body: any, cover_ima
 }
 
 
+export const DeletePost = async function (idPost: string) {
+  try {
+    let result = await axios.delete(`${BASE_URL_Dev}/deleteArticle/${idPost}`)
+    ShowToastify("SUCESS", "Post Deleted")
+  } catch (error) {
+    ShowToastify("ERROR")
+  }
+}
+
 export const UpdatePost = async function (idPost: string, title: string, body: any, FileImage: any) {
   try {
     let result = await axios.put(`${BASE_URL_Dev}/${idPost}`,
