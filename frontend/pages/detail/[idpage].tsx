@@ -73,7 +73,7 @@ function DetailPage({ paramsUrl }: Props) {
           {/* Image Cover */}
           <div className="h-52 w-full overflow-hidden mb-3 ">
             <LazyLoadImage
-              // className=" "
+              className="h-full w-full object-cover object-center "
               src={`https://drive.google.com/uc?id=${data?.cover_image as string}&export=download`}
 
             />

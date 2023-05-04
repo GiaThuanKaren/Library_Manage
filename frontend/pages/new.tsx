@@ -8,6 +8,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import dynamic from "next/dynamic";
 import { CreateNewPost } from "src/service/api";
 import { url } from "inspector";
+import { useRouter } from "next/router";
 interface Prop {
   text: string;
   handleFUNC: React.Dispatch<React.SetStateAction<string>>;
@@ -19,7 +20,7 @@ const Edit: FC<Prop> = function ({ handleFUNC, text }) {
   const InputEle = React.useRef<any>();
   const [title, setTitle] = React.useState<string>("")
   const [bodyText, setBodyText] = React.useState("")
-
+  const { push } = useRouter();
   const [ImageUrl, SetImageurl] = React.useState<{
     url: string;
     filesImage: File
@@ -30,6 +31,7 @@ const Edit: FC<Prop> = function ({ handleFUNC, text }) {
     try {
       let result = await CreateNewPost(title, bodyText, ImageUrl?.filesImage as File)
       console.log(result?.data)
+      push("/")
     } catch (e) {
       throw e
     }

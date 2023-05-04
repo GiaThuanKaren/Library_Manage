@@ -5,22 +5,26 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import LayoutBasis1 from "src/Layouts/LayoutBasis1";
 import Mainlayout from 'src/Layouts/Mainlayout';
 import { PostItem } from 'src/components';
-
+import { GetAllPostByIdUser } from 'src/service/api';
+import { PostItemInf } from "src/Model/index"
 
 
 
 function PersonalProfile() {
     const { idprofile } = useRouter().query;
-
-    React.useEffect(() => { 
-        async function FetchAPi(){
+    const [dataPost, setDataPost] = React.useState<PostItemInf[]>([])
+    React.useEffect(() => {
+        async function FetchAPi() {
             try {
-                
+                let result = await GetAllPostByIdUser(idprofile as string)
+                setDataPost(result["article"])
             } catch (error) {
-                
+
             }
         }
-        
+        if (idprofile) {
+            FetchAPi()
+        }
     }, [idprofile])
 
     const { data: session, status } = useSession()
@@ -50,7 +54,15 @@ function PersonalProfile() {
 
                 </div>
                 <h3 className='text-black my-7'>Recently Updated</h3>
-
+                {
+                    dataPost.map((item: PostItemInf, index: number) => {
+                        return (
+                            <>
+                                <PostItem {...item} />
+                            </>
+                        )
+                    })
+                }
             </Mainlayout>
         </>
     )

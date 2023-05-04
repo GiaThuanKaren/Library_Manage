@@ -4,10 +4,10 @@ import {
   LazyLoadImage,
   LazyLoadComponent,
 } from "react-lazy-load-image-component";
-import { ICON, IconRegular } from "src/utils";
+import { ICON, IconRegular, IconSolid, readingTime } from "src/utils";
 import { PostItemInf } from "src/Model";
 import { useRouter } from "next/router";
-function PostItem({ _id, body, bookmarks, comments_count, cover_image, created_at, edited_at, likes, published, title, user }: PostItemInf) {
+function PostItem({ optionAdmin, _id, body, bookmarks, comments_count, cover_image, created_at, edited_at, likes, published, title, user }: PostItemInf) {
   const { push } = useRouter()
   const userAuthor = user[0];
   console.log(_id.$oid)
@@ -16,12 +16,16 @@ function PostItem({ _id, body, bookmarks, comments_count, cover_image, created_a
       <div onClick={() => {
         push(`/detail/${_id.$oid}`)
       }} className="my-2 w-full min-h-[100px]  border-[2px] border-[#ececec] rounded-md shadow-sm p-4">
-        <LazyLoadImage
-          // effect="blur"
-          src={`https://drive.google.com/uc?id=${cover_image as string}&export=download`}
+        <div className="w-full h-[300px]">
+          <LazyLoadImage
+            // effect="blur"
+            className=" w-full h-full object-center object-contain"
+            src={`https://drive.google.com/uc?id=${cover_image as string}&export=download`}
 
-          alt=""
-        />
+            alt=""
+          />
+        </div>
+
         <Link href={"/user/thuan"}>
           <div className="flex items-center mt-3">
             <img
@@ -49,9 +53,14 @@ function PostItem({ _id, body, bookmarks, comments_count, cover_image, created_a
               </div>
 
               <div className="flex items-center">
-                <p className="text-xs mx-3">7 min read</p>
+                <p className="text-xs mx-3">{readingTime(body)} min read</p>
                 <ICON icon={IconRegular.faBookmark} />
+                <ICON onClick={(e) => {
+                  e.stopPropagation();
+                  push(`/detail/edit/${_id.$oid}`)
+                }} className="ml-4 p-5 hover:cursor-pointer" icon={IconSolid.faEllipsisV} />
               </div>
+
             </div>
           </div>
         </div>

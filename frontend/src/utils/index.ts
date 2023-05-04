@@ -25,3 +25,12 @@ export const ShowToastify = function (type: "ERROR" | "SUCESS", msg?: string) {
     }
 
 }
+
+
+export const readingTime = function (textBody: string) {
+    const wpm = 225;
+    const words = textBody.trim().split(/\s+/).length;
+    const time = Math.ceil(words / wpm);
+    return time
+
+}
